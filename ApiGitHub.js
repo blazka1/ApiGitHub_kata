@@ -25,7 +25,7 @@ function fetchGitRep(search) {
     {
       headers: {
         Accept: "application/vnd.github+json",
-        Authorization: "Bearer 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",
+        Authorization: "Bearer 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",
       },
     }
   )
