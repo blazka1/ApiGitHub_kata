@@ -5,7 +5,9 @@ let suggestionList = document.querySelector(".suggestion-list");
 let suggestionFavorites = document.querySelector(".suggestion-favorites");
 let suggestionCardCreate = document.createElement("div");
 let body = document.querySelector("body");
-const ACCESSTOKEN = "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";
+const ACCESSTOKEN =
+  "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";
+
 suggestionCardCreate.classList.add("suggestion-card");
 
 body.addEventListener("click", (e) => {
