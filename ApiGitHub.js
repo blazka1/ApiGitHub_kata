@@ -5,7 +5,7 @@ let suggestionList = document.querySelector(".suggestion-list");
 let suggestionFavorites = document.querySelector(".suggestion-favorites");
 let suggestionCardCreate = document.createElement("div");
 let body = document.querySelector("body");
-
+const ACCESSTOKEN = "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";
 suggestionCardCreate.classList.add("suggestion-card");
 
 body.addEventListener("click", (e) => {
@@ -20,15 +20,12 @@ function fetchGitRep(search) {
   if (search.length < 0) {
     return;
   }
-  let githubApi = fetch(
-    `https://api.github.com/search/repositories?q=${search}&per_page=5`,
-    {
-      headers: {
-        Accept: "application/vnd.github+json",
-        Authorization: "Bearer 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",
-      },
-    }
-  )
+  fetch(`https://api.github.com/search/repositories?q=${search}&per_page=5`, {
+    headers: {
+      Accept: "application/vnd.github+json",
+      Authorization: `Bearer ${ACCESSTOKEN}`,
+    },
+  })
     .then((response) => response.json())
     .then((result) => {
       responseGit = result.items;
