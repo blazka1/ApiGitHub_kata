@@ -1,0 +1,90 @@
+@font-face {
+  font-family: "Fallout";
+  src: url("fonts/fallout.woff2") format("woff2"),
+    url("fonts/fallout.woff") format("woff");
+}
+* {
+  box-sizing: border-box;
+}
+
+.main {
+  margin: 0 auto;
+  padding-top: 25px;
+}
+h1 {
+  text-align: center;
+}
+input[type="text"] {
+  background-color: rgb(52, 116, 44);
+  color: #fff;
+  width: 100%;
+}
+.input-container {
+  position: relative;
+}
+.main__hiden-aria {
+  position: absolute;
+  display: none;
+  max-width: 100%;
+  top: 27px;
+  left: 0%;
+}
+
+.container {
+  width: 30%;
+  margin: 0 auto;
+  padding: 50px;
+}
+* ul {
+  list-style: none;
+  padding-left: 0;
+}
+body {
+  font-family: "Fallout";
+  color: rgb(32, 180, 118);
+  opacity: 1;
+  background-image: linear-gradient(0deg, #141d0f 50%, #1a3a28 50%);
+  background-size: 4px 4px;
+  box-sizing: border-box;
+}
+.inp_srch {
+  font-family: "Fallout";
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.suggestion-list__item {
+  font-size: 1.5rem;
+  font-weight: 300;
+  background-color: rgb(52, 116, 44);
+  border: 1px solid rgb(42, 88, 36);
+  padding: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.suggestion-list__item:hover {
+  color: #fff;
+}
+.suggestion-favorites {
+  margin-top: 35px;
+}
+.suggestion-card-container {
+  max-width: 100%;
+  padding: 5px;
+  border: #1a3a28 3px solid;
+  margin-bottom: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.suggestion-card-btn {
+  background-color: transparent;
+  border: none;
+  font-family: "Fallout";
+  color: rgb(180, 111, 32);
+  font-size: 0.8rem;
+  padding: 0;
+}
+
+.suggestion-card-btn:hover {
+  color: #fff;
+}
