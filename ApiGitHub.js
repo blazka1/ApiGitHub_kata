@@ -8,7 +8,6 @@ let body = document.querySelector("body");
 
 suggestionCardCreate.classList.add("suggestion-card");
 
-// body = document.querySelector(".suggestion-list__item");
 body.addEventListener("click", (e) => {
   hidenArea.style.display = "none";
   inpText.value = "";
@@ -26,7 +25,7 @@ function fetchGitRep(search) {
     {
       headers: {
         Accept: "application/vnd.github+json",
-        Authorization: "Bearer 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",
+        Authorization: "Bearer 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",
       },
     }
   )
