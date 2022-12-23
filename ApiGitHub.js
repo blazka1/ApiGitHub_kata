@@ -1,85 +1,48 @@
-let responseGit;
-let inpText = document.querySelector("#inp__search");
-let hidenArea = document.querySelector(".main__hiden-aria");
-let suggestionList = document.querySelector(".suggestion-list");
-let suggestionFavorites = document.querySelector(".suggestion-favorites");
-let suggestionCardCreate = document.createElement("div");
-let body = document.querySelector("body");
-const ACCESSTOKEN =
-  "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";
+import {
+  containInnerList,
+  createCard,
+  capitalizeFLetter,
+  selectedRepo,
+} from "./functions.js";
 
-suggestionCardCreate.classList.add("suggestion-card");
+let responseGit;
+const inpText = document.querySelector("#inp__search");
+const hidenArea = document.querySelector(".main__hiden-aria");
+const body = document.querySelector("body");
+
+let inDebounce;
+const debounce = (func, delay) => {
+  return function () {
+    const context = this;
+    const args = arguments;
+    clearTimeout(inDebounce);
+    inDebounce = setTimeout(() => func.apply(context, args), delay);
+  };
+};
 
 body.addEventListener("click", (e) => {
-  hidenArea.style.display = "none";
+  hidenArea.classList.add("hide");
+  hidenArea.classList.remove("show");
   inpText.value = "";
 });
 
-function fetchGitRep(search) {
-  if (search.length === 0) {
-    hidenArea.style.display = "none";
-  }
-  if (search.length < 0) {
-    return;
-  }
-  fetch(`https://api.github.com/search/repositories?q=${search}&per_page=5`, {
-    headers: {
-      Accept: "application/vnd.github+json",
-      Authorization: `Bearer ${ACCESSTOKEN}`,
-    },
-  })
+function fetchGitRep() {
+  fetch(
+    `https://api.github.com/search/repositories?q=${inpText.value}&per_page=5`,
+    {
+      headers: {
+        Accept: "application/vnd.github+json",
+      },
+    }
+  )
     .then((response) => response.json())
     .then((result) => {
       responseGit = result.items;
-      suggestionList.innerHTML = responseGit
-        .map(
-          ({ full_name, id }) =>
-            `<li data-id="${id}" class="suggestion-list__item">${capitalizeFLetter(
-              full_name
-            )}</li>`
-        )
-        .join("");
-      hidenArea.style.display = "block";
-      let suggestionListItem = document.querySelectorAll(
-        ".suggestion-list__item"
-      );
-      let selectedRepo = null;
-      suggestionListItem.forEach((item) =>
-        item.addEventListener("click", (e) => {
-          selectedRepo = responseGit.find(
-            ({ id }) => id === parseInt(e.target.dataset.id)
-          );
-          console.log(selectedRepo);
-          let addCard =
-            (suggestionCardCreate.innerHTML = `<div class="suggestion-card-container">
-          <div class="suggestion-card-name">Name: ${selectedRepo.name}</div>
-          <div class="suggestion-card-owner">Owner: ${selectedRepo.owner.login}</div>
-          <div class="suggestion-card-stars">Stats: ${selectedRepo.stargazers_count}</div>
-          <button class="suggestion-card-btn">Detete</button>
-          </div>`);
-
-          if (suggestionFavorites.innerHTML !== "") {
-            suggestionFavorites.innerHTML += addCard;
-          } else {
-            suggestionFavorites.innerHTML = addCard;
-          }
-
-          let btns = document.querySelectorAll(".suggestion-card-btn");
-
-          btns.forEach((e) => {
-            e.addEventListener("click", (evn) => {
-              evn.target.parentElement.remove();
-            });
-          });
-        })
-      );
+      hidenArea.textContent = "";
+      hidenArea.appendChild(containInnerList(responseGit));
+      hidenArea.classList.add("show");
+      hidenArea.classList.remove("hide");
     });
 }
 
-inpText.addEventListener("input", (e) => {
-  fetchGitRep(e.target.value);
-});
-
-function capitalizeFLetter(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
+inpText.addEventListener("input", debounce(fetchGitRep, 2000));

@@ -88,3 +88,9 @@ body {
 .suggestion-card-btn:hover {
   color: #fff;
 }
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
